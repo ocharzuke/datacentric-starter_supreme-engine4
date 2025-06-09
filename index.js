@@ -144,10 +144,12 @@ async function main() {
       let filter = {};
 
       if (title) {
+        filter["title"] = { $in: title };
         // TODO: if the client provided a title, add it to the filter
       }
 
       if (genre) {
+        filter["genre.name"] = { $in: genre.name };
         // TODO: if the client provided a genre, add it to the filter
       }
 
@@ -168,7 +170,10 @@ async function main() {
       }
 
       // TODO: perform the search
-      const results = null;
+      const results = await db
+        .collection("movies-collection")
+        .find(filter)
+        .toArray();
 
       // send back the results
       res.json({
