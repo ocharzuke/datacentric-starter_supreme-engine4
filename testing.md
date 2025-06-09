@@ -3,25 +3,28 @@
 ## Setup Instructions
 
 1. **Install dependencies**:
+
    ```bash
    npm install express cors mongodb bcrypt jsonwebtoken dotenv
    ```
 
 2. **Set up environment variables**:
    Create a `.env` file with:
+
    ```
    MONGO_URI=your_mongodb_connection_string
    TOKEN_SECRET=your_secret_key_for_jwt
    ```
 
 3. **Import sample data**:
+
    ```bash
-   node import-data.js
+   node import-script.js
    ```
 
 4. **Start the server**:
    ```bash
-   node app.js
+   node index.js
    ```
 
 ## API Endpoints for Testing
@@ -29,12 +32,14 @@
 ### Authentication
 
 1. **Login** (Get JWT token):
+
    ```
    POST /login
    Body: { "email": "admin@moviedb.com", "password": "admin123!" }
    ```
 
 2. **Register new user**:
+
    ```
    POST /users
    Body: { "email": "newuser@example.com", "password": "password123" }
@@ -49,12 +54,14 @@
 ### Movie Operations
 
 1. **Get all movies** (Requires token):
+
    ```
    GET /movies
    Headers: Authorization: Bearer your_jwt_token
    ```
 
 2. **Search movies** (Requires token):
+
    ```
    GET /movies?title=Space
    GET /movies?genre=Science+Fiction
@@ -64,11 +71,13 @@
    ```
 
 3. **Get movie by ID**:
+
    ```
    GET /movies/60d21b4667d0d8992e610cb0
    ```
 
 4. **Create new movie**:
+
    ```
    POST /movies
    Body: {
@@ -97,6 +106,7 @@
    ```
 
 5. **Update movie**:
+
    ```
    PUT /movies/60d21b4667d0d8992e610cb0
    Body: { same format as above with updated values }
@@ -111,19 +121,20 @@
 
 ### User Login Credentials
 
-| Email                | Password      | Role     |
-|----------------------|---------------|----------|
-| admin@moviedb.com    | admin123!     | admin    |
-| user1@example.com    | userpass1     | user     |
-| user2@example.com    | userpass2     | user     |
-| editor@moviedb.com   | editor123     | editor   |
-| reviewer@moviedb.com | reviewer123   | reviewer |
+| Email                | Password    | Role     |
+| -------------------- | ----------- | -------- |
+| admin@moviedb.com    | admin123!   | admin    |
+| user1@example.com    | userpass1   | user     |
+| user2@example.com    | userpass2   | user     |
+| editor@moviedb.com   | editor123   | editor   |
+| reviewer@moviedb.com | reviewer123 | reviewer |
 
 These plaintext passwords correspond to the bcrypt hashes in the users.json file.
 
 Example cURL commands for testing:
 
 1. **Login to get token**:
+
    ```bash
    curl -X POST http://localhost:3000/login \
      -H "Content-Type: application/json" \
@@ -131,6 +142,7 @@ Example cURL commands for testing:
    ```
 
 2. **Get all movies (with token)**:
+
    ```bash
    curl -X GET http://localhost:3000/movies \
      -H "Authorization: Bearer YOUR_TOKEN_HERE"
